@@ -14,8 +14,8 @@ const InventoryFooter = ({
 
   const inventoryItems = useSelector((state) => state.categories.inventoryItems);
 
-  function groupByCategoryId(items) {
-    return items.reduce((result, item) => {
+  function groupByCategoryIdToArray(items) {
+    const groupedData = items.reduce((result, item) => {
       const { categoryId } = item;
   
       if (!result[categoryId]) {
@@ -25,8 +25,16 @@ const InventoryFooter = ({
       result[categoryId].push(item);
       return result;
     }, {});
+  
+    return Object.keys(groupedData).map((key) => ({
+      [key]: groupedData[key]
+    }));
   }
-
+  function transformToObjectArray(groupedData) {
+    return Object.keys(groupedData).map((categoryId) => ({
+      [categoryId]: groupedData[categoryId]
+    }));
+  }
 
   const saveInventoryItems = async () => {
     try {
@@ -36,7 +44,7 @@ const InventoryFooter = ({
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(groupByCategoryId(inventoryItems))
+        body: JSON.stringify(groupByCategoryIdToArray(inventoryItems))
       });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
