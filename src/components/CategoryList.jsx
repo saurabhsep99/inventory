@@ -23,15 +23,17 @@ const CategoryList = ({ categories }) => {
         }
     };
 
+    console.log('categories',categories);
+
     return (
       <List sx={{ mt:3 }}>
           {categories.map((category, index) => (
             <ListItem key={index}
               secondaryAction={
                 <Box sx={{display:'flex', alignItems:'center'}}>
-                  <Button sx={{minWidth:'30px', p:'0px', borderRadius:'50%', color:'black', border:'1px solid black', '&:hover':{color:'grey', borderColor:'grey'}}} onClick={() => handleDecrementCategory(index)}>-</Button>
+                  <Button sx={{minWidth:'25px', p:'0px', borderRadius:'50%', color:'black', border:'1px solid blue', '&:hover':{color:'grey', borderColor:'grey'}}} onClick={() => handleDecrementCategory(index)}><span style={{color:'blue'}}>-</span></Button>
                   <Typography sx={{px:1}}>{category.number}</Typography>
-                  <Button sx={{minWidth:'30px', p:'0px', borderRadius:'50%', color:'black', border:'1px solid black', '&:hover':{color:'grey', borderColor:'grey'}}} onClick={() => handleIncrementCategory(index)}>+</Button>
+                  <Button sx={{minWidth:'25px', p:'0px', borderRadius:'50%', color:'black', border:'1px solid blue', '&:hover':{color:'grey', borderColor:'grey'}}} onClick={() => handleIncrementCategory(index)}><span style={{color:'blue'}}>+</span></Button>
                  </Box>
               }
              >

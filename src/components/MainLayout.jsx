@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
     AppBar,
     Toolbar,
@@ -7,64 +7,67 @@ import {
     CssBaseline,
     Typography
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import AppDrawer from './AppDrawer';
-import {Link} from "react-router-dom";
-import Button from "@mui/material/Button";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from "react-router-dom";
 
-const MainLayout = ({ children }) => {
-      const [drawerOpen, setDrawerOpen] = useState(false);
-       const handleDrawerToggle = () => {
-        setDrawerOpen(!drawerOpen);
-    };
+const MainLayout = ({ children,name='Select Inventory',handleBack,activeStep  }) => {
+    const navigate = useNavigate();
+
     return (
         <>
             <CssBaseline />
-             <Box sx={{ backgroundColor: '#f9fafb', minHeight: '100vh'}}>
-                 <AppBar
-                    position="static"
+            <Box sx={{ backgroundColor: '#f9fafb', minHeight: '100vh' }}>
+                <AppBar
+                    position="sticky"
                     elevation={0}
                     sx={{
-                        backgroundColor: 'transparent',
+                        backgroundColor: 'white',
                         color: 'black',
                         py: 1,
+                        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
                     }}
                 >
                     <Toolbar
                         sx={{
                             display: 'flex',
+                            alignItems: 'center',
                             justifyContent: 'space-between',
-                            borderRadius: 2,
-                            backgroundColor: 'white',
-                            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                            mx: 'auto',
-                            width: '100%',
-                            px: { xs: 2, md: 3 },
-                            minHeight: '50px'
+                            minHeight: '50px',
+                            px: 2,
                         }}
                     >
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                            <IconButton
-                                size="large"
-                                edge="start"
-                                color="inherit"
-                                aria-label="menu"
-                                sx={{ mr: 2, display: { md: 'none' } }}
-                                onClick={handleDrawerToggle}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Typography variant="h6" sx={{ fontWeight: 600, mr: 2 }}>
-                                Happy<span style={{color:'red'}}>Locate</span>
-                            </Typography>
-                            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
-                                 <Button color="inherit" component={Link} to="/">Home</Button>
-                                <Button color="inherit" component={Link} to="/inventory">Inventory</Button>
-                            </Box>
-                        </Box>
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="back"
+                            onClick={() => {
+                                if (activeStep > 0) {
+                                  handleBack();
+                                } else {
+                                  // Redirect to Google
+                                  window.location.href = 'https://www.google.co.in/';
+                                }
+                              }}                            sx={{ mr: 2 }}
+                        >
+                            <ArrowBackIcon />
+                        </IconButton>
+                        <Typography
+                            variant="h6"
+                            sx={{
+                                fontWeight: 600,
+                                textAlign: 'center',
+                                flexGrow: 1,
+                            }}
+                        >
+                            {name}
+                        </Typography>
+                        {/* Invisible placeholder for spacing */}
+                        <Box sx={{ width: 48 }} />
                     </Toolbar>
-                 </AppBar>
-               <AppDrawer open={drawerOpen} onClose={handleDrawerToggle} />
+                    {/* Blue underline */}
+                    <Box sx={{ height: '3px', backgroundColor: '#3b82f6',width:'50%' }} />
+                </AppBar>
                 {children}
             </Box>
         </>

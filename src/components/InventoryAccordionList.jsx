@@ -12,11 +12,9 @@ import { useSelector } from 'react-redux';
 
 const InventoryAccordionList = ({ categories, expandedPanel, handleAccordionChange, activeStep, items }) => {
   const inventoryItems = useSelector((state) => state.categories.inventoryItems);
-  debugger
-
   
   const handleClose = () => {
-    setOpen(false);  // Close the dialog
+    setOpen(false);  
   };
 
   const generateAccordions = () => {
@@ -30,7 +28,7 @@ const InventoryAccordionList = ({ categories, expandedPanel, handleAccordionChan
           accordions.push(
             <Accordion key={categoryId} expanded={expandedPanel === categoryId} onChange={handleAccordionChange(categoryId)}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel-content" id="panel-header">
-                <Typography>{`${category.name}`} <span style={{ color: 'blue', marginLeft: '40px' }}>{`Item Added ${totalQuantity}`}</span></Typography>
+                <Typography>{`${category.name} - ${i}`} <span style={{ color: 'blue', marginLeft: '40px' }}>{`Item Added ${totalQuantity}`}</span></Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>

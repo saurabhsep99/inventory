@@ -8,7 +8,7 @@ const categorySlice = createSlice({
   },
   reducers: {
     addCategory: (state, action) => {
-      state.categories.push(action.payload);
+      state.categories=[...action.payload];
     },
     removeCategory: (state, action) => {
       state.categories.splice(action.payload, 1);

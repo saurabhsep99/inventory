@@ -50,7 +50,7 @@ const InventoryitemsCard = ({ items, categoryId }) => {
             <CardMedia
                 component="img"
                 height="200"
-                image={items?.imageUrl}
+                image={`/${items?.name}.jpg`}
                 alt={items?.name}
                 sx={{ objectFit: 'contain' }}
             />
@@ -62,9 +62,9 @@ const InventoryitemsCard = ({ items, categoryId }) => {
             <CardActions sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
                 {quantity > 0 ? (
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Button variant="outlined" size="small" onClick={handleDecrement}>-</Button>
+                        <Button sx={{borderRadius:'50%',minWidth:'25px'}} variant="outlined" size="small" onClick={handleDecrement}>-</Button>
                         <Typography>{quantity}</Typography>
-                        <Button variant="outlined" size="small" onClick={handleIncrement}>+</Button>
+                        <Button  sx={{borderRadius:'50%',minWidth:'25px'}} variant="outlined" size="small" onClick={handleIncrement}>+</Button>
                     </Box>
                 ) : (
                     <Button variant="contained" color="primary" size="small" onClick={handleAddCategory}>Add</Button>
@@ -75,8 +75,6 @@ const InventoryitemsCard = ({ items, categoryId }) => {
 };
 
 const InventoryDashboard = ({ item,categoryId }) => {
-    debugger
-    console.log('@@item', item)
 
     const [search, setSearch] = useState('');
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -90,7 +88,6 @@ const InventoryDashboard = ({ item,categoryId }) => {
 
     return (
         <Box sx={{ padding: 2, width: '100%' }}>
-            {/* Rounded Search Bar */}
             <TextField
                 fullWidth
                 variant="outlined"
@@ -113,7 +110,6 @@ const InventoryDashboard = ({ item,categoryId }) => {
                 }}
             />
 
-            {/* Category Chips */}
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
                 <Chip
                     label="All"
@@ -134,7 +130,7 @@ const InventoryDashboard = ({ item,categoryId }) => {
 
             <Grid container spacing={2}>
                 {filtereditems.map((items) => (
-                    <Grid items xs={12} sm={6} md={4} lg={3} key={items.id}>
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={items.id}>
                         <InventoryitemsCard items={items} categoryId={categoryId} />
                     </Grid>
                 ))}
